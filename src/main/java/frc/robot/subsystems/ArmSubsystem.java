@@ -33,7 +33,7 @@ public class ArmSubsystem extends SubsystemBase {
 
     private enum IntakerMode {
         INTAKE(ArmConstants.kIntakerSpeed),
-        SHOOT(ArmConstants.kShootSpeed),
+        SHOOT(-ArmConstants.kShootSpeed),
         IDLE(0);
 
         public double m_motorSpeed;

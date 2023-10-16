@@ -60,7 +60,8 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
-    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+    Command resetArm = m_robotContainer.m_arm.setArmPosition(0);
+    m_autonomousCommand = resetArm.andThen(m_robotContainer.getAutonomousCommand());
 
     /*
      * String autoSelected = SmartDashboard.getString("Auto Selector",
