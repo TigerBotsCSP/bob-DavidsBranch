@@ -4,12 +4,12 @@
 
 package frc.robot;
 
-//import com.revrobotics.SparkMaxAbsoluteEncoder.Type;
-
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-
+import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.subsystems.ArmSubsystem;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -60,19 +60,31 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
+    // Auto: Shoots preloaded cube, goes down, goes to other cube, comes back and shoots (and parks)
+    Command shootTopCube = m_robotContainer.m_arm.getShootCommand(ArmSubsystem.IntakerMode.SHOOT_TOP);
+    Command shootMiddleCube = m_robotContainer.m_arm.getShootCommand(ArmSubsystem.IntakerMode.SHOOT_MIDDLE);
     Command resetArm = m_robotContainer.m_arm.setArmPosition(0);
-    m_autonomousCommand = resetArm.andThen(m_robotContainer.getAutonomousCommand());
 
-    /*
-     * String autoSelected = SmartDashboard.getString("Auto Selector",
-     * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
-     * = new MyAutoCommand(); break; case "Default Auto": default:
-     * autonomousCommand = new ExampleCommand(); break; }
-     */
+    m_autonomousCommand = shootTopCube
+    .andThen(
+      resetArm,
+      new WaitCommand(0.5),
+      m_robotContainer.m_arm.getToggleIntakerCommand(),
+      Commands.parallel(
+        m_robotContainer.getAutonomousCommand(),
+        Commands.sequence(
+          new WaitCommand(3),
+          m_robotContainer.m_arm.getToggleIntakerCommand(),
+          m_robotContainer.m_arm.setArmPosition(40),
+          new WaitCommand(2),
+          shootMiddleCube
+        )
+      )
+    );
 
-    // schedule the autonomous command (example)
+    // Schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
-      m_autonomousCommand.schedule();
+      m_robotContainer.m_arm.setArmPosition(40).andThen(new WaitCommand(2), m_autonomousCommand).schedule();
     }
   }
 
