@@ -70,7 +70,7 @@ public class ArmSubsystem extends SubsystemBase {
     m_pidController.setD(0);
     m_pidController.setIZone(0);
     m_pidController.setFF(0);
-    m_pidController.setOutputRange(-.2, .3);
+    m_pidController.setOutputRange(-ArmConstants.kRotationSpeed, ArmConstants.kRotationSpeed);
 
 
         m_intaker = new CANSparkMax(11, MotorType.kBrushless);
