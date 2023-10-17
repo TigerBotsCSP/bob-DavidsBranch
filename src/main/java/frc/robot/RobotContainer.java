@@ -41,9 +41,9 @@ public class RobotContainer {
   CommandXboxController m_driverController = new CommandXboxController(OIConstants.kDriverControllerPort);
   CommandXboxController m_armController = new CommandXboxController(OIConstants.kArmControllerPort);
 
-  /*
-   * The container for the robot. Contains subsystems, OI devices, and commands.
-   */
+  // Other variables here
+  public String autoPath = "paths/TwoCubes.wpilib.json";
+
   public RobotContainer() {
 
     // Configure the button bindings
@@ -126,11 +126,10 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {    
     // Create config for trajectory
-    String trajectoryJSON = "paths/StraightToCube.wpilib.json";
     Trajectory exampleTrajectory = new Trajectory();
 
     try {
-      Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON);
+      Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(autoPath);
       exampleTrajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
     } catch (IOException e) {
       System.out.println("Failed to load path!");
