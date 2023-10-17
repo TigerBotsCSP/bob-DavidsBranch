@@ -31,9 +31,12 @@ public class ArmSubsystem extends SubsystemBase {
      */
     private RelativeEncoder m_encoder;
 
-    private enum IntakerMode {
+    public enum IntakerMode {
         INTAKE(ArmConstants.kIntakerSpeed),
         SHOOT(-ArmConstants.kShootSpeed),
+        SHOOT_BOTTOM(-ArmConstants.kBottomShootSpeed),
+        SHOOT_MIDDLE(-ArmConstants.kMiddleShootSpeed),
+        SHOOT_TOP(-ArmConstants.kTopShootSpeed),
         IDLE(0);
 
         public double m_motorSpeed;
@@ -99,8 +102,8 @@ public class ArmSubsystem extends SubsystemBase {
         return this.runOnce(() -> this.toggleIntaker());
     }
 
-    public Command getShootCommand() {
-        return this.runOnce(() -> this.setIntakerMode(IntakerMode.SHOOT))
+    public Command getShootCommand(IntakerMode mode) {
+        return this.runOnce(() -> this.setIntakerMode(mode))
         .andThen(
             new WaitCommand(0.25),
             this.runOnce(() -> this.setIntakerMode(IntakerMode.IDLE)))

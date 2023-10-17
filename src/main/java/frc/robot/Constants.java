@@ -29,6 +29,10 @@ public final class Constants {
     public static final double kIntakerSpeed = .3;
     public static final double kRotationSpeed = .5;
     public static final double kShootSpeed = .9;
+
+    public static final double kBottomShootSpeed = .1;
+    public static final double kMiddleShootSpeed = .3;
+    public static final double kTopShootSpeed = 0.6;
   }
 
   public static final class DriveConstants {

@@ -81,10 +81,12 @@ public class RobotContainer {
         () -> m_robotDrive.setX(),
         m_robotDrive));
     m_armController.b().onTrue(m_arm.getToggleIntakerCommand());
-    m_armController.rightTrigger(0.3).onTrue(m_arm.getShootCommand());
+    m_armController.povUp().onTrue(m_arm.getShootCommand(ArmSubsystem.IntakerMode.SHOOT_TOP));
+    m_armController.povLeft().onTrue(m_arm.getShootCommand(ArmSubsystem.IntakerMode.SHOOT_MIDDLE));
+    m_armController.povDown().onTrue(m_arm.getShootCommand(ArmSubsystem.IntakerMode.SHOOT_BOTTOM));
 
-    m_armController.x().onTrue(m_arm.setArmPosition(40));
-    m_armController.y().onTrue(m_arm.setArmPosition(0));
+    m_armController.y().onTrue(m_arm.setArmPosition(40));
+    m_armController.x().onTrue(m_arm.setArmPosition(0));
   }
 
   // Returns a SwerveControllerCommand for the PathWeaver path JSON
