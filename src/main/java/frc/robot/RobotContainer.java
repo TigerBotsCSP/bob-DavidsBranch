@@ -58,7 +58,7 @@ public class RobotContainer {
                 MathUtil.applyDeadband(m_driverController.getLeftY(), OIConstants.kDriveDeadband),
                 MathUtil.applyDeadband(m_driverController.getLeftX(), OIConstants.kDriveDeadband),
                 -MathUtil.applyDeadband(m_driverController.getRightX(), OIConstants.kDriveDeadband),
-                true, true),
+                false, true),
             m_robotDrive));
 
 
@@ -85,8 +85,8 @@ public class RobotContainer {
     m_armController.povLeft().onTrue(m_arm.getShootCommand(ArmSubsystem.IntakerMode.SHOOT_MIDDLE));
     m_armController.povDown().onTrue(m_arm.getShootCommand(ArmSubsystem.IntakerMode.SHOOT_BOTTOM));
 
-    m_armController.y().onTrue(m_arm.setArmPosition(40));
-    m_armController.x().onTrue(m_arm.setArmPosition(0));
+    m_armController.y().onTrue(m_arm.setArmPosition(-1));
+    m_armController.x().onTrue(m_arm.setArmPosition(-44));
   }
 
   // Returns a SwerveControllerCommand for the PathWeaver path JSON

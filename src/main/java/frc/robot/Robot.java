@@ -78,7 +78,7 @@ public class Robot extends TimedRobot {
     // Auto: Shoots preloaded cube, goes down, goes to other cube, comes back and shoots (and parks)
     Command shootTopCube = m_robotContainer.m_arm.getShootCommand(ArmSubsystem.IntakerMode.SHOOT_TOP);
     Command shootMiddleCube = m_robotContainer.m_arm.getShootCommand(ArmSubsystem.IntakerMode.SHOOT_MIDDLE);
-    Command resetArm = m_robotContainer.m_arm.setArmPosition(0);
+    Command resetArm = m_robotContainer.m_arm.setArmPosition(-44);
 
     if (!m_robotContainer.autoPath.contains("Cubes")) {
       // Balance path just shoots its preloaded cube and balances
@@ -95,7 +95,7 @@ public class Robot extends TimedRobot {
           Commands.sequence(
             new WaitCommand(3),
             m_robotContainer.m_arm.getToggleIntakerCommand(),
-            m_robotContainer.m_arm.setArmPosition(40),
+            m_robotContainer.m_arm.setArmPosition(-1),
             new WaitCommand(2),
             shootMiddleCube
           )
@@ -112,12 +112,12 @@ public class Robot extends TimedRobot {
           Commands.sequence(
             new WaitCommand(3),
             m_robotContainer.m_arm.getToggleIntakerCommand(),
-            m_robotContainer.m_arm.setArmPosition(40),
+            m_robotContainer.m_arm.setArmPosition(-1),
             new WaitCommand(2),
             shootMiddleCube,
             new WaitCommand(.75),
             m_robotContainer.m_arm.getToggleIntakerCommand(),
-            m_robotContainer.m_arm.setArmPosition(40),
+            m_robotContainer.m_arm.setArmPosition(-1),
             new WaitCommand(2)
           )
         )
@@ -126,7 +126,7 @@ public class Robot extends TimedRobot {
 
     // Schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
-      m_robotContainer.m_arm.setArmPosition(40).andThen(new WaitCommand(1), m_autonomousCommand).schedule();
+      m_robotContainer.m_arm.setArmPosition(-1).andThen(m_autonomousCommand).schedule();
     }
   }
 

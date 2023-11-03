@@ -59,6 +59,8 @@ public class ArmSubsystem extends SubsystemBase {
     // initialize SPARK MAX with CAN ID
     m_motor = new CANSparkMax(kCanID, kMotorType);
     m_motor.restoreFactoryDefaults();
+    m_motor.setSmartCurrentLimit(40); // new limit
+
     //set controller to use through-bore (absolute) encoder 
     m_encoder = m_motor.getEncoder();
     m_pidController = m_motor.getPIDController();
