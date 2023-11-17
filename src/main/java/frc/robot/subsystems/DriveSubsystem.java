@@ -71,6 +71,7 @@ public class DriveSubsystem extends SubsystemBase {
     // Reset and calibrate
     m_gyro.reset();
     m_gyro.calibrate();
+    m_gyro.setAngleAdjustment(180);
   }
 
   @Override
