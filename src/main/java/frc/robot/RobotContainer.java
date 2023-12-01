@@ -87,6 +87,15 @@ public class RobotContainer {
 
     m_armController.y().onTrue(m_arm.setArmPosition(-1));
     m_armController.x().onTrue(m_arm.setArmPosition(-44));
+
+    // Drive speeds
+    m_driverController.rightTrigger().whileTrue(new RunCommand(
+      () -> {
+        Constants.DriveConstants.kMaxSpeedMetersPerSecond = 4.8 * 0.5;
+      }))
+      .whileFalse(new RunCommand(() -> {
+        Constants.DriveConstants.kMaxSpeedMetersPerSecond = 4.8 * 1.3;
+      }));
   }
 
   // Returns a SwerveControllerCommand for the PathWeaver path JSON

@@ -15,6 +15,7 @@ import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.util.WPIUtilJNI;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.DriveConstants;
@@ -71,7 +72,7 @@ public class DriveSubsystem extends SubsystemBase {
     // Reset and calibrate
     m_gyro.reset();
     m_gyro.calibrate();
-    m_gyro.setAngleAdjustment(180);
+    m_gyro.setAngleAdjustment(180); // Flips it around 
   }
 
   @Override
@@ -128,6 +129,8 @@ public class DriveSubsystem extends SubsystemBase {
    * @param rateLimit     Whether to enable rate limiting for smoother control.
    */
   public void drive(double xSpeed, double ySpeed, double rot, boolean fieldRelative, boolean rateLimit) {
+    // print
+    DriverStation.reportError("Drive: " + xSpeed + ", " + ySpeed, false);
     
     double xSpeedCommanded;
     double ySpeedCommanded;
