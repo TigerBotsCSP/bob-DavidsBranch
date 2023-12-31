@@ -171,9 +171,12 @@ public class DriveSubsystem extends SubsystemBase {
         m_currentTranslationMag = m_magLimiter.calculate(0.0);
       }
       m_prevTime = currentTime;
-      
-      xSpeedCommanded = m_currentTranslationMag * Math.cos(m_currentTranslationDir);
-      ySpeedCommanded = m_currentTranslationMag * Math.sin(m_currentTranslationDir);
+
+      // Disables slew rate by using the original input values instead
+      //xSpeedCommanded = m_currentTranslationMag * Math.cos(m_currentTranslationDir);
+      //ySpeedCommanded = m_currentTranslationMag * Math.sin(m_currentTranslationDir);
+      xSpeedCommanded = inputTranslationMag * Math.cos(inputTranslationDir);
+      ySpeedCommanded = inputTranslationMag * Math.sin(inputTranslationDir);
       m_currentRotation = m_rotLimiter.calculate(rot);
 
 
